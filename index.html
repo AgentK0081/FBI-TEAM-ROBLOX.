@@ -3,482 +3,1833 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FBI TEAM ROBLOX Database</title>
+    <title>FBI TEAM ROBLOX</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-black: #000000;
+            --bg-dark: #0a0a0a;
+            --bg-secondary: #141414;
+            --bg-tertiary: #1f1f1f;
+            --gold-primary: #d4af37;
+            --gold-light: #f4d03f;
+            --gold-dark: #b8941e;
+            --blue-primary: #1e3a8a;
+            --blue-light: #3b82f6;
+            --blue-dark: #1e40af;
+            --text-primary: #ffffff;
+            --text-secondary: #b8b8b8;
+            --text-tertiary: #808080;
+        }
+
         body {
-            background-color: #0b0f19;
-            color: white;
-            font-family: "Arial", sans-serif;
-            text-align: center;
-            padding-top: 30px;
+            font-family: 'Montserrat', sans-serif;
+            background: var(--bg-black);
+            color: var(--text-primary);
+            overflow-x: hidden;
         }
 
-        #header {
-            font-size: 24px;
-            font-weight: bold;
-            background-color: #141922;
-            padding: 15px;
-            border-bottom: 3px solid #7289da;
-        }
-
-        /* Online Users Section */
-        #online-users-container {
-            margin: 20px auto;
-            width: 60%;
-            background-color: #141922;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0px 0px 10px rgba(114, 137, 218, 0.3);
-            border-left: 6px solid #43b581;
-        }
-
-        #online-users-header {
-            font-size: 20px;
-            font-weight: bold;
-            color: #43b581;
-            margin-bottom: 15px;
+        /* Hero Section */
+        .hero-section {
+            height: 100vh;
+            position: relative;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
+            background: var(--bg-black);
+            overflow: hidden;
         }
 
-        .online-indicator {
-            width: 12px;
-            height: 12px;
-            background-color: #43b581;
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1920');
+            background-size: cover;
+            background-position: center;
+            filter: brightness(0.25) saturate(0.7);
+            animation: slowZoom 30s ease-in-out infinite alternate;
+        }
+
+        @keyframes slowZoom {
+            from { transform: scale(1); }
+            to { transform: scale(1.15); }
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(ellipse at center, transparent 0%, var(--bg-black) 100%),
+                linear-gradient(180deg, 
+                    rgba(10, 10, 10, 0.4) 0%, 
+                    rgba(10, 10, 10, 0.8) 70%,
+                    var(--bg-black) 100%);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .hero-emblem {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 2rem;
+            border: 3px solid var(--gold-primary);
             border-radius: 50%;
-            animation: pulse 2s infinite;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Cinzel', serif;
+            font-size: 3rem;
+            font-weight: 900;
+            color: var(--gold-primary);
+            box-shadow: 0 0 40px rgba(212, 175, 55, 0.4);
+            animation: pulse 3s ease-in-out infinite;
         }
 
         @keyframes pulse {
-            0%, 100% {
+            0%, 100% { box-shadow: 0 0 40px rgba(212, 175, 55, 0.4); }
+            50% { box-shadow: 0 0 60px rgba(212, 175, 55, 0.6); }
+        }
+
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 5rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--gold-light), var(--gold-primary), var(--gold-dark));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 40px rgba(212, 175, 55, 0.3);
+            animation: fadeInDown 1.2s ease-out;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
                 opacity: 1;
-                box-shadow: 0 0 0 0 rgba(67, 181, 129, 0.7);
-            }
-            50% {
-                opacity: 0.8;
-                box-shadow: 0 0 0 10px rgba(67, 181, 129, 0);
+                transform: translateY(0);
             }
         }
 
-        #online-users-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 10px;
-            margin-top: 15px;
-            min-height: 50px;
+        .hero-subtitle {
+            font-family: 'Cinzel', serif;
+            font-size: 1.3rem;
+            letter-spacing: 0.4em;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            margin-bottom: 3rem;
+            animation: fadeIn 1.5s ease-out 0.3s both;
         }
 
-        .online-user-card {
-            background-color: #1e232a;
-            border: 2px solid #43b581;
-            border-radius: 5px;
-            padding: 10px;
-            text-align: left;
-            transition: all 0.3s ease;
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .hero-divider {
+            width: 200px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--gold-primary), transparent);
+            margin: 2rem auto;
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 3rem;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
             cursor: pointer;
         }
 
-        .online-user-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 4px 8px rgba(67, 181, 129, 0.3);
-            border-color: #5bc894;
+        .scroll-indicator::before {
+            content: '↓';
+            font-size: 2.5rem;
+            color: var(--gold-primary);
         }
 
-        .online-user-name {
-            font-weight: bold;
-            color: #ffffff;
-            font-size: 14px;
-            margin-bottom: 5px;
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(-15px); }
         }
 
-        .online-user-threat {
-            font-size: 12px;
-            padding: 3px 8px;
-            border-radius: 3px;
-            display: inline-block;
+        /* Firebase Status Indicator */
+        .firebase-status {
+            position: fixed;
+            bottom: 1rem;
+            left: 1rem;
+            background: rgba(0, 0, 0, 0.8);
+            border: 1px solid var(--gold-primary);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.75rem;
+            z-index: 1002;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
 
-        #online-count {
-            font-size: 16px;
-            color: #b9bbbe;
-            margin-top: 10px;
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #ef4444;
         }
 
-        .loading {
-            color: #7289da;
-            font-style: italic;
-            padding: 10px;
+        .status-dot.connected {
+            background: #22c55e;
         }
 
-        .no-online {
-            color: #99aab5;
-            font-style: italic;
-            padding: 20px;
+        /* Tabs Navigation */
+        .tabs-container {
+            position: sticky;
+            top: 0;
+            background: rgba(0, 0, 0, 0.98);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid var(--gold-primary);
+            z-index: 1000;
+            transform: translateY(-100%);
+            transition: transform 0.4s ease;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
         }
 
-        #refresh-btn {
-            background-color: #43b581;
-            margin-top: 10px;
+        .tabs-container.sticky {
+            transform: translateY(0);
         }
 
-        #refresh-btn:hover {
-            background-color: #5bc894;
+        .tabs {
+            display: flex;
+            justify-content: center;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0;
         }
 
-        #search-container {
-            margin: 20px auto;
-            width: 60%;
-            background-color: #141922;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.2);
-        }
-
-        input {
-            width: 70%;
-            padding: 10px;
-            font-size: 16px;
-            border: 2px solid white;
-            background-color: #1e232a;
-            color: white;
-            border-radius: 5px;
-            outline: none;
-        }
-
-        button {
-            padding: 10px 15px;
-            font-size: 16px;
-            background-color: #d9534f;
-            color: white;
+        .tab {
+            background: transparent;
             border: none;
+            color: var(--text-secondary);
+            padding: 1.5rem 3rem;
+            font-family: 'Cinzel', serif;
+            font-size: 0.95rem;
+            font-weight: 600;
             cursor: pointer;
-            border-radius: 5px;
-            margin: 5px;
+            position: relative;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            border-right: 1px solid rgba(212, 175, 55, 0.2);
         }
 
-        #results {
-            margin-top: 20px;
+        .tab:last-child {
+            border-right: none;
         }
 
-        .embed-box {
-            background-color: #141922;
-            border-left: 6px solid #7289da;
+        .tab:hover {
+            color: var(--gold-light);
+            background: rgba(212, 175, 55, 0.05);
+        }
+
+        .tab.active {
+            color: var(--gold-primary);
+            background: rgba(212, 175, 55, 0.1);
+        }
+
+        .tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--gold-dark), var(--gold-primary), var(--gold-light));
+            animation: slideIn 0.3s ease-out;
+        }
+
+        @keyframes slideIn {
+            from { transform: scaleX(0); }
+            to { transform: scaleX(1); }
+        }
+
+        /* Admin Button */
+        .admin-btn {
+            position: fixed;
+            top: 1.5rem;
+            right: 1.5rem;
+            background: linear-gradient(135deg, var(--gold-primary), var(--gold-dark));
+            color: var(--bg-black);
+            border: 2px solid var(--gold-primary);
+            padding: 0.875rem 2rem;
+            font-family: 'Cinzel', serif;
+            font-weight: 700;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            cursor: pointer;
+            border-radius: 50px;
+            z-index: 1001;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 25px rgba(212, 175, 55, 0.4);
+        }
+
+        .admin-btn:hover {
+            background: linear-gradient(135deg, var(--gold-light), var(--gold-primary));
+            box-shadow: 0 0 35px rgba(212, 175, 55, 0.6);
+            transform: translateY(-2px);
+        }
+
+        .admin-btn.logged-in {
+            background: linear-gradient(135deg, var(--blue-light), var(--blue-primary));
+            border-color: var(--blue-light);
+            box-shadow: 0 0 25px rgba(59, 130, 246, 0.4);
+        }
+
+        /* Content Area */
+        .content-area {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+            min-height: 100vh;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeInUp 0.6s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeInUp {
+            from { 
+                opacity: 0; 
+                transform: translateY(30px); 
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0); 
+            }
+        }
+
+        /* Section Headers */
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 3rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+            position: relative;
+        }
+
+        .section-header::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 200px;
+            height: 1px;
+            background: var(--gold-primary);
+        }
+
+        .section-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            background: linear-gradient(135deg, var(--gold-primary), var(--gold-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Search and Filter */
+        .controls {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .search-box, .filter-select {
+            flex: 1;
+            min-width: 250px;
+            padding: 1rem 1.5rem;
+            background: var(--bg-secondary);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            color: var(--text-primary);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1rem;
             border-radius: 8px;
-            padding: 15px;
-            width: 60%;
+            transition: all 0.3s ease;
+        }
+
+        .search-box:focus, .filter-select:focus {
+            outline: none;
+            border-color: var(--gold-primary);
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.2);
+            background: var(--bg-tertiary);
+        }
+
+        .search-box::placeholder {
+            color: var(--text-tertiary);
+        }
+
+        /* Cards Grid */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .card {
+            background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-dark) 100%);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 12px;
+            padding: 2rem;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--gold-dark), var(--gold-primary), var(--gold-light));
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+
+        .card::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.05) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .card:hover {
+            border-color: var(--gold-primary);
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(212, 175, 55, 0.2);
+        }
+
+        .card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .card:hover::after {
+            opacity: 1;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .card-title {
+            font-family: 'Cinzel', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--gold-primary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .card-badge {
+            background: var(--gold-primary);
+            color: var(--bg-black);
+            padding: 0.4rem 1rem;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            border-radius: 20px;
+            letter-spacing: 0.1em;
+        }
+
+        .card-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .card-content p {
+            margin-bottom: 1rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        .card-content strong {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        /* Division Cards */
+        .division-card {
+            position: relative;
+            height: 350px;
+            background-size: cover;
+            background-position: center;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            transition: all 0.4s ease;
+        }
+
+        .division-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 50px rgba(212, 175, 55, 0.3);
+            border-color: var(--gold-primary);
+        }
+
+        .division-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, 
+                rgba(0, 0, 0, 0.3) 0%, 
+                rgba(0, 0, 0, 0.7) 50%,
+                rgba(0, 0, 0, 0.95) 100%);
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            transition: background 0.4s ease;
+        }
+
+        .division-card:hover .division-overlay {
+            background: linear-gradient(180deg, 
+                rgba(0, 0, 0, 0.5) 0%, 
+                rgba(0, 0, 0, 0.85) 50%,
+                rgba(0, 0, 0, 0.98) 100%);
+        }
+
+        .division-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            color: var(--gold-primary);
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .division-card p {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        /* Player Table */
+        .players-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .players-table thead {
+            background: linear-gradient(135deg, var(--bg-tertiary), var(--bg-dark));
+        }
+
+        .players-table th {
+            padding: 1.25rem;
             text-align: left;
-            box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
-            margin: 10px auto;
+            font-family: 'Cinzel', serif;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--gold-primary);
+            border-bottom: 2px solid var(--gold-primary);
         }
 
-        .embed-title {
-            font-size: 20px;
-            font-weight: bold;
-            color: #ffffff;
+        .players-table td {
+            padding: 1.25rem;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+            color: var(--text-secondary);
         }
 
-        .embed-description {
-            font-size: 16px;
-            color: #b9bbbe;
+        .players-table tbody tr {
+            transition: all 0.3s ease;
         }
 
-        .highlight {
-            font-weight: bold;
-            color: #ffffff;
+        .players-table tbody tr:hover {
+            background: rgba(212, 175, 55, 0.05);
+        }
+
+        .rank-badge {
+            display: inline-block;
+            padding: 0.4rem 1rem;
+            background: linear-gradient(135deg, var(--gold-primary), var(--gold-dark));
+            color: var(--bg-black);
+            font-size: 0.75rem;
+            font-weight: 700;
+            border-radius: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* Wanted Cards */
+        .wanted-card {
+            background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-dark) 100%);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 12px;
+            padding: 2rem;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .wanted-card::before {
+            content: 'WANTED';
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-family: 'Cinzel', serif;
+            font-size: 3rem;
+            font-weight: 900;
+            color: rgba(212, 175, 55, 0.1);
+            transform: rotate(-15deg);
+            pointer-events: none;
+        }
+
+        .wanted-card:hover {
+            background: var(--bg-tertiary);
+            border-color: var(--gold-primary);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 50px rgba(212, 175, 55, 0.3);
         }
 
         .threat-level {
-            font-weight: bold;
-            padding: 5px;
-            border-radius: 5px;
             display: inline-block;
-            margin-top: 5px;
+            padding: 0.6rem 1.5rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            border-radius: 25px;
+            margin-top: 1rem;
+            letter-spacing: 0.1em;
+            font-size: 0.85rem;
         }
 
-        .low { background-color: green; color: white; }
-        .medium { background-color: orange; color: black; }
-        .high { background-color: red; color: white; }
-        .critical { background-color: darkred; color: white; }
-
-        .online-badge {
-            background-color: #43b581;
-            color: white;
-            padding: 3px 8px;
-            border-radius: 3px;
-            font-size: 12px;
-            margin-left: 10px;
-            animation: blink 2s infinite;
+        .threat-low { 
+            background: linear-gradient(135deg, var(--blue-light), var(--blue-primary)); 
+            color: var(--text-primary);
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+        }
+        .threat-medium { 
+            background: linear-gradient(135deg, var(--gold-light), var(--gold-primary)); 
+            color: var(--bg-black);
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+        }
+        .threat-high { 
+            background: linear-gradient(135deg, #ef4444, #dc2626); 
+            color: var(--text-primary);
+            box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
         }
 
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
+        /* Buttons */
+        .btn {
+            background: linear-gradient(135deg, var(--gold-primary), var(--gold-dark));
+            color: var(--bg-black);
+            border: none;
+            padding: 1rem 2.5rem;
+            font-family: 'Cinzel', serif;
+            font-size: 0.95rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            cursor: pointer;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.3);
         }
 
+        .btn:hover {
+            background: linear-gradient(135deg, var(--gold-light), var(--gold-primary));
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.5);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, var(--bg-tertiary), var(--bg-secondary));
+            color: var(--text-primary);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            box-shadow: none;
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--gold-primary);
+            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.2);
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, #dc2626, #991b1b);
+            color: var(--text-primary);
+        }
+
+        .btn-danger:hover {
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            box-shadow: 0 8px 25px rgba(220, 38, 38, 0.4);
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .modal.active {
+            display: flex;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, var(--bg-secondary), var(--bg-dark));
+            border: 1px solid var(--gold-primary);
+            border-radius: 16px;
+            padding: 2.5rem;
+            max-width: 600px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            animation: modalSlideUp 0.5s ease;
+            box-shadow: 0 20px 60px rgba(212, 175, 55, 0.3);
+        }
+
+        @keyframes modalSlideUp {
+            from { 
+                opacity: 0; 
+                transform: translateY(50px) scale(0.95); 
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0) scale(1); 
+            }
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+        }
+
+        .modal-header h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            background: linear-gradient(135deg, var(--gold-primary), var(--gold-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 2.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            line-height: 1;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+
+        .close-btn:hover {
+            color: var(--gold-primary);
+            background: rgba(212, 175, 55, 0.1);
+            transform: rotate(90deg);
+        }
+
+        .form-group {
+            margin-bottom: 1.75rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.75rem;
+            font-family: 'Cinzel', serif;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--gold-primary);
+            font-size: 0.85rem;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 1rem 1.25rem;
+            background: var(--bg-tertiary);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            color: var(--text-primary);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--gold-primary);
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.2);
+            background: var(--bg-secondary);
+        }
+
+        .form-group textarea {
+            min-height: 140px;
+            resize: vertical;
+        }
+
+        /* Loading Indicator */
+        .loading {
+            text-align: center;
+            padding: 3rem;
+            color: var(--gold-primary);
+            font-family: 'Cinzel', serif;
+            font-size: 1.2rem;
+            letter-spacing: 0.1em;
+        }
+
+        .loading::after {
+            content: '...';
+            animation: dots 1.5s infinite;
+        }
+
+        @keyframes dots {
+            0%, 20% { content: '.'; }
+            40% { content: '..'; }
+            60%, 100% { content: '...'; }
+        }
+
+        /* Responsive */
         @media (max-width: 768px) {
-            #online-users-container, #search-container, .embed-box {
-                width: 90%;
+            .hero-title {
+                font-size: 2.5rem;
+                letter-spacing: 0.1em;
             }
 
-            #online-users-list {
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+
+            .tabs {
+                flex-wrap: wrap;
+            }
+
+            .tab {
+                flex: 1 1 50%;
+                padding: 1rem;
+                font-size: 0.85rem;
+            }
+
+            .cards-grid {
                 grid-template-columns: 1fr;
             }
 
-            input {
-                width: 60%;
+            .section-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1.5rem;
             }
+
+            .section-header h2 {
+                font-size: 2rem;
+            }
+
+            .players-table {
+                font-size: 0.85rem;
+            }
+
+            .players-table th,
+            .players-table td {
+                padding: 0.875rem;
+            }
+
+            .admin-btn {
+                top: 1rem;
+                right: 1rem;
+                padding: 0.75rem 1.5rem;
+                font-size: 0.75rem;
+            }
+
+            .firebase-status {
+                bottom: 0.5rem;
+                left: 0.5rem;
+                font-size: 0.7rem;
+            }
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-dark);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, var(--gold-primary), var(--gold-dark));
+            border-radius: 6px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(180deg, var(--gold-light), var(--gold-primary));
         }
     </style>
 </head>
 <body>
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
 
-    <div id="header">FBI TEAM ROBLOX Criminal Database</div>
-
-    <!-- Online Users Section -->
-    <div id="online-users-container">
-        <div id="online-users-header">
-            <div class="online-indicator"></div>
-            <span>🟢 SUSPECTS CURRENTLY ONLINE</span>
-        </div>
-        <div id="online-users-list">
-            <div class="loading">Checking online status...</div>
-        </div>
-        <div id="online-count"></div>
-        <button id="refresh-btn" onclick="checkOnlineUsers()">🔄 Refresh Online Status</button>
+    <!-- Firebase Status Indicator -->
+    <div class="firebase-status">
+        <div class="status-dot" id="statusDot"></div>
+        <span id="statusText">Connecting...</span>
     </div>
 
-    <div id="search-container">
-        <input type="text" id="search-bar" placeholder="Search for a suspect...">
-        <button onclick="search()">🔍 Search</button>
+    <!-- Admin Login Button -->
+    <button class="admin-btn" id="adminBtn" onclick="showAdminLogin()">Admin Login</button>
+
+    <!-- Hero Section -->
+    <div class="hero-section">
+        <div class="hero-bg"></div>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <div class="hero-emblem">FTR</div>
+            <h1 class="hero-title">FBI TEAM ROBLOX</h1>
+            <div class="hero-divider"></div>
+            <p class="hero-subtitle">Official Website</p>
+        </div>
+        <div class="scroll-indicator" onclick="scrollToContent()"></div>
     </div>
 
-    <div id="results"></div>
+    <!-- Tabs Navigation -->
+    <div class="tabs-container" id="tabsContainer">
+        <div class="tabs">
+            <button class="tab active" onclick="switchTab('information')">Information</button>
+            <button class="tab" onclick="switchTab('divisions')">Divisions</button>
+            <button class="tab" onclick="switchTab('players')">Players</button>
+            <button class="tab" onclick="switchTab('wanted')">Wanted Reports</button>
+        </div>
+    </div>
+
+    <!-- Content Area -->
+    <div class="content-area" id="contentArea">
+        <!-- Information Tab -->
+        <div id="information" class="tab-content active">
+            <div class="section-header">
+                <h2>Intelligence Brief</h2>
+            </div>
+            <div class="cards-grid">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Mission Statement</h3>
+                    </div>
+                    <div class="card-content">
+                        <p><strong>Objective:</strong> Elite tactical operations community dedicated to excellence in coordinated military roleplay scenarios.</p>
+                        <p><strong>Established:</strong> 2024</p>
+                        <p><strong>Active Operatives:</strong> <span id="memberCount">0</span></p>
+                        <p><strong>Status:</strong> Operational</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Code of Conduct</h3>
+                    </div>
+                    <div class="card-content">
+                        <p>• Maintain operational security at all times</p>
+                        <p>• Uphold chain of command protocols</p>
+                        <p>• Execute missions with precision and professionalism</p>
+                        <p>• Report all suspicious activities immediately</p>
+                        <p>• Zero tolerance for insubordination</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Recruitment Process</h3>
+                    </div>
+                    <div class="card-content">
+                        <p><strong>Phase I:</strong> Submit application and background check</p>
+                        <p><strong>Phase II:</strong> Complete tactical training program</p>
+                        <p><strong>Phase III:</strong> Pass operational evaluation</p>
+                        <p><strong>Phase IV:</strong> Receive assignment and credentials</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Divisions Tab -->
+        <div id="divisions" class="tab-content">
+            <div class="section-header">
+                <h2>Operational Divisions</h2>
+                <button class="btn admin-only" style="display: none;" onclick="showAddDivision()">+ New Division</button>
+            </div>
+            <div id="divisionsLoading" class="loading">Loading divisions</div>
+            <div class="cards-grid" id="divisionsGrid" style="display: none;">
+                <!-- Divisions will be populated here -->
+            </div>
+        </div>
+
+        <!-- Players Tab -->
+        <div id="players" class="tab-content">
+            <div class="section-header">
+                <h2>Personnel Roster</h2>
+                <button class="btn admin-only" style="display: none;" onclick="showAddPlayer()">+ New Operative</button>
+            </div>
+            <div class="controls">
+                <input type="text" class="search-box" id="playerSearch" placeholder="Search callsign or username..." oninput="filterPlayers()">
+                <select class="filter-select" id="rankFilter" onchange="filterPlayers()">
+                    <option value="">All Ranks</option>
+                    <option value="Director">Director</option>
+                    <option value="Deputy Director">Deputy Director</option>
+                    <option value="Lieutenant">Lieutenant</option>
+                    <option value="Sergeant">Sergeant</option>
+                    <option value="Corporal">Corporal</option>
+                    <option value="Operative">Operative</option>
+                </select>
+            </div>
+            <div id="playersLoading" class="loading">Loading personnel</div>
+            <table class="players-table" id="playersTable" style="display: none;">
+                <thead>
+                    <tr>
+                        <th>Callsign</th>
+                        <th>Username</th>
+                        <th>Rank</th>
+                        <th>Division</th>
+                        <th class="admin-only" style="display: none;">Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="playersTableBody">
+                    <!-- Players will be populated here -->
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Wanted Reports Tab -->
+        <div id="wanted" class="tab-content">
+            <div class="section-header">
+                <h2>High-Value Targets</h2>
+                <button class="btn admin-only" style="display: none;" onclick="showAddWanted()">+ New Target</button>
+            </div>
+            <div class="controls">
+                <input type="text" class="search-box" id="wantedSearch" placeholder="Search targets..." oninput="filterWanted()">
+            </div>
+            <div id="wantedLoading" class="loading">Loading targets</div>
+            <div class="cards-grid" id="wantedGrid" style="display: none;">
+                <!-- Wanted reports will be populated here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Login Modal -->
+    <div id="adminLoginModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Admin Access</h3>
+                <button class="close-btn" onclick="closeModal('adminLoginModal')">&times;</button>
+            </div>
+            <div class="form-group">
+                <label>Access Code</label>
+                <input type="password" id="adminPassword" placeholder="Enter authorization code...">
+            </div>
+            <button class="btn" onclick="adminLogin()">Authenticate</button>
+        </div>
+    </div>
+
+    <!-- Add Division Modal -->
+    <div id="addDivisionModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>New Division</h3>
+                <button class="close-btn" onclick="closeModal('addDivisionModal')">&times;</button>
+            </div>
+            <div class="form-group">
+                <label>Division Name</label>
+                <input type="text" id="divisionName" placeholder="e.g., Special Operations">
+            </div>
+            <div class="form-group">
+                <label>Description</label>
+                <textarea id="divisionDesc" placeholder="Division description and capabilities..."></textarea>
+            </div>
+            <div class="form-group">
+                <label>Image URL</label>
+                <input type="text" id="divisionImage" placeholder="https://example.com/image.jpg">
+            </div>
+            <button class="btn" onclick="addDivision()">Create Division</button>
+        </div>
+    </div>
+
+    <!-- Add Player Modal -->
+    <div id="addPlayerModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>New Operative</h3>
+                <button class="close-btn" onclick="closeModal('addPlayerModal')">&times;</button>
+            </div>
+            <div class="form-group">
+                <label>Callsign</label>
+                <input type="text" id="playerCallsign" placeholder="e.g., ALPHA-1">
+            </div>
+            <div class="form-group">
+                <label>Username</label>
+                <input type="text" id="playerUsername" placeholder="e.g., Operator_01">
+            </div>
+            <div class="form-group">
+                <label>Rank</label>
+                <select id="playerRank">
+                    <option value="Operative">Operative</option>
+                    <option value="Corporal">Corporal</option>
+                    <option value="Sergeant">Sergeant</option>
+                    <option value="Lieutenant">Lieutenant</option>
+                    <option value="Captain">Captain</option>
+                    <option value="Commander">Commander</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Division</label>
+                <input type="text" id="playerDivision" placeholder="e.g., Special Operations">
+            </div>
+            <button class="btn" onclick="addPlayer()">Add Operative</button>
+        </div>
+    </div>
+
+    <!-- Add Wanted Modal -->
+    <div id="addWantedModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>New Target</h3>
+                <button class="close-btn" onclick="closeModal('addWantedModal')">&times;</button>
+            </div>
+            <div class="form-group">
+                <label>Target Username</label>
+                <input type="text" id="wantedUsername" placeholder="Primary identifier...">
+            </div>
+            <div class="form-group">
+                <label>Known Alias</label>
+                <input type="text" id="wantedAlias" placeholder="Code name...">
+            </div>
+            <div class="form-group">
+                <label>Offense Details</label>
+                <textarea id="wantedReason" placeholder="Description of criminal activities..."></textarea>
+            </div>
+            <div class="form-group">
+                <label>Threat Assessment</label>
+                <select id="wantedThreat">
+                    <option value="low">Low</option>
+                    <option value="medium">Medium</option>
+                    <option value="high">High</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Last Known Position</label>
+                <input type="text" id="wantedLocation" placeholder="Location intel...">
+            </div>
+            <button class="btn" onclick="addWanted()">Add to Database</button>
+        </div>
+    </div>
+
+    <!-- Wanted Details Modal -->
+    <div id="wantedDetailsModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Target Dossier</h3>
+                <button class="close-btn" onclick="closeModal('wantedDetailsModal')">&times;</button>
+            </div>
+            <div id="wantedDetailsContent">
+                <!-- Details will be populated here -->
+            </div>
+        </div>
+    </div>
 
     <script>
-        // Database of suspects
-        const users = [
-            { username: "bropro30090", reason: "2x Firing on Officer, 1x Bank Robbery, 1x Robbery", details: "N/A", threat: "High" },
-            { username: "ExploitBan", reason: "Officer murders, Agent murders and is an mafia member.", details: "N/A", threat: "Critical" },
-            { username: "Akori4e", reason: "Shooting multiple officers and FBI members", details: "The girl doesn't stop shooting, very dangerous.", threat: "Critical" },
-            { username: "LUKE_R2D2", reason: "Murdering an Agent", details: "Suspect said it's from TPC.", threat: "High" },
-            { username: "UhOkayz", reason: "Officer murder after investigation", details: "N/A", threat: "High" },
-            { username: "001vvs", reason: "Shooting FBI Agent and Damaging FBI Vehicle", details: "N/A", threat: "Medium" },
-            { username: "Ikhebeenhond10", reason: "Started firing on officer and killed me", details: "N/A", threat: "High" },
-            { username: "darkvader_47", reason: "Murder on federal agent, x3 Evasion, x1 ATM Robbery", details: "Drives a black Bullhorn Determinator SFP, black jack Widebody 2022 with white rims, plate: DEMON.", threat: "Critical" },
-            { username: "Flo010709", reason: "x10 officer murder and teaming", details: "N/A", threat: "Critical" },
-            { username: "Hamim234", reason: "x5 officer murder and teaming", details: "N/A", threat: "High" },
-            { username: "Oaudyi", reason: "Possible contract killer", details: "Ordered to kill us by 2 masked people.", threat: "Critical" },
-            { username: "Visttula", reason: "Firing on agent x1", details: "Possible another contract killer.", threat: "Medium" },
-            { username: "ShaneBarf", reason: "Stalking and threats", details: "Looks like he is targeting me.", threat: "Low" }, 
-            { username: "LCCDeveloper", reason: "5 star wanted, committed federal crimes", details: "There is a chance the person is using exploit", threat: "High" }, 
-            { username: "hamim234", reason: "x5 officer murder and teaming", details: "N/A", threat: "High" }, 
-            { username: "De3pr", reason: "Agent murder 2x, Officer murder 7x", details: "Also teaming with cops.", threat: "High" }, 
-            { username: "ddhied", reason: "N/A", details: "Suspect is teaming with a TAC member and has murdered and fired on Agents 3x", threat: "High" }, 
-            { username: "Aadrit456", reason: "Murdered an FBI agent, faking a guard of president, attempted murder on president, being in crime organization TPC", details: "At LCSO 2024/10/15 GMT+8 11:49", threat: "High" }, 
-            { username: "Earleeue", reason: "Murdered 2 FBI at field office, faking report to the FBI, might be part of a crime organization", details: "Suspect was using phone before killing 2 FBI agents", threat: "High" }, 
-            { username: "ninjayush934", reason: "1x FBI Agent Kidnapping, 3x Firing on Agents, 1x Agent Murder", details: "N/A", threat: "High" }, 
-            { username: "alessandrotto02", reason: "2x Firing on Agents, 1x Armed Robbery on Shop, 1x Agent Murder", details: "N/A", threat: "High" },
-            { username: "LifeHackeriscool", reason: "Murder", details: "Multiple Officer Murders, Civilian Murders", threat: "Medium" }, 
-            { username: "SUPTUENES", reason: "Organized Crime", details: "Organized Bank Robbery", threat: "High" }, 
-            { username: "BILLYBUTCHER_EXE", reason: "Mass murder.", details: "He murdered 9 people, (X3) Civilians, (X6) Officers", threat: "High" }, 
-            { username: "sa1nteus", reason: "Mass murder, Evasion, Bank robbery, ETC (most of his wanted reasons were not on MFD)", details: "N/A", threat: "High" }, 
-            { username: "matula2000", reason: "Multiple Counts of Murder", details: "Wanted for Multiple Counts of Murder; FBI Agent & Multiple Officers. Last known Location: Highrock Park Main Area", threat: "High" }, 
-            { username: "cxnnor_bsbl217", reason: "Mass Murder of FBI agents, cops and civilians", details: "N/A", threat: "Critical" }, 
-            { username: "20Colian10", reason: "Stealing classified file", details: "He African American. he was documented. but he on wanted for Stealing Classified file from us", threat: "Medium"}, 
-            { username: "LucyTheSleepy", reason: "Officer Murder x2, Firing on Officer x2, Bank Robber.", details: "Suspected to be a part of SRT.", threat: "High" }, 
-            { username: "Valdek33", reason: "Firing on Agent, Officer Murder.", details: "N/A", threat: "Low" }, 
-            { username: "Trungdeptryy06", reason: "Gun Trafficking", details: "According this chat, it may probably triad", threat: "Low" }, 
-            { username: "tinsell99", reason: "Shooting Undercover Agent while do Survelliance", details: "He was listed on ICE Wanted list for few crime he did", threat: "Low" }, 
-            { username: "Doggie3337", reason: "Raid Sheriff Office", details: "There a two suspect including her which involved on Raid with sniper. i scare them off but only got her", threat: "Low" }, 
-            { username: "WhoaThatsDak", reason: "Raid Sheriff Office, Killing Undercover Agent", details: "Its another one. But, he got me when i scare them", threat: "Low" }, 
-            { username: "Nichthias", reason: "Firing on helicopter and officer murder", details: "Is armed and dangereus, played in T3 S2. Get him arrested.", threat: "Low" }, 
-            { username: "IVAN091006", reason: "Attempting Assasinate", details: "He probably try assasinate me for bounty money. after he got arrested, he still trying shooting me as cops.", threat: "Low" }, 
-            { username: "4EVfaf", reason: "murdering multiple units of the LCSO and RCPD, stated he will do it again once out of prison, fleeing officers and shooting down a police helicopter.", details: "has a fast, purple, supercar also has a sidekick who he seems to help him with comitting these major crimes.", threat: "Medium" }, 
-            { username: "Dinopod1234", reason: "Multiple murdering units of the LCSO and RCPD, also has comitted bank robbery", details: "Is with 4EVfaf, usually are in the same car. they both spawn in springfield", threat: "Medium" },
-            { username: "AwesomEngineer01", reason: "Multiple Officers Murder, Including FBI", details: "Moves with at least 3 people, Blue Audi", threat: "Medium" }, 
-            { username: "gew117123", reason: "Bank Robbery+Multiple Other Robberies and killed a officer", details: "Tall, white male, drives a completely blacked out buggati Plates: KITTY", threat: "Low" },
-            { username: "TheMiner127", reason: "Involved in killing a Federal Agent, attack on a Judge.", details: "Also shooting on a helicopter, 6x officer murders, and is in a mafia with another suspect.", threat: "Low" },
-            { username: "Eric2active", reason: "Evading, shooting LEOs and Federal Agents, possibly involved in an attack on a Judge and firing on a helicopter", details: "Suspect is also in a mafia with the suspect above.", threat: "Low" },
-            { username: "xmaxy830", reason: "Attacking a Judge at Courthouse.", details: "Driving a black van, and threatening to go back to the courthouse to kill the Judge.", threat: "Medium" },
-            { username: "rxeul", reason: "Bank Robbery and murder of a federal agent", details: "Killed Federal Agent near Bank. Armed with a machine gun, no known houses/occupations.", threat: "Low" },
-            { username: "xzcqnv", reason: "Multiple officer murder, and more", details: "Teaming with officer ma3qiii, abusing the game mechanics. (Threat could be low to none as not in roleplay)", threat: "Low" },
-            { username: "ma3qiii", reason: "Corrupt Officer", details: "She is teaming with suspect xzcqnv", threat: "Low" },
-            { username: "IIIIIIIIIIIIIIII", reason: "Mass murder, EXECUTING LAW ENFORCEMENT OFFICERS, MOST ON FEDERAL PROPERTY", details: "Killed 3x FBI Agents.", threat: "Medium" },
-            { username: "OfficerJamesWithTase", reason: "Mass Murder.", details: "Shot a heli.", threat: "Low" },
-            { username: "TupolevTu4", reason: "Mass Murder", details: "Shot a heli, possible in mafia with OfficerJamesWithTase.", threat: "Low" },
-            { username: "whippypiee", reason: "Major Attack, Mass Murder", details: "Shot on Helicopter", threat: "Low" },
-            { username: "JitteryRet", reason: "Major Attack, Mass Murder", details: "Shot on Helicopter", threat: "Medium" },
-            { username: "NinjaWolf249", reason: "Mass Murder,Major attack", details: "Shot on helicopter", threat: "Low" },
-            { username: "Vindhaevn", reason: "Mass Murder, Major Attack", details: "Shot on helicopter.", threat: "Low" },
-            { username: "EliteERLCRoleplayer", reason: "Mass Murder, major attack.", details: "Shot on helicopter", threat: "Low" },
-            { username: "S1rAvia", reason: "Mass murder, Major attack.", details: "Shot on heli.", threat: "Low" },
-            { username: "H4nn4h_IsBetter", reason: "Bank Robbery", details: "Robbed bank 1x", threat: "Low" }
-        ];
+        // ========================================
+        // FIREBASE CONFIGURATION
+        // ========================================
+        // REPLACE WITH YOUR FIREBASE CONFIG
+        const firebaseConfig = {
+  apiKey: "AIzaSyCIHxshPEAP-f_5vWFdXo2gB6A-2sXIW9w",
+  authDomain: "database-3c7f2.firebaseapp.com",
+  databaseURL: "https://database-3c7f2-default-rtdb.firebaseio.com",
+  projectId: "database-3c7f2",
+  storageBucket: "database-3c7f2.firebasestorage.app",
+  messagingSenderId: "64818643987",
+  appId: "1:64818643987:web:44e9b3d084280fb66a2be6",
+  measurementId: "G-RF9YJCW48S"
+};
 
-        // Global variables
-        let onlineUsersGlobal = [];
-        let userIdCache = {};
+        // ========================================
+        // ADMIN PASSWORD
+        // ========================================
+        const ADMIN_PASSWORD = 'agent24856';
 
-        // Get User ID using Roproxy (bypasses CORS)
-        async function getUserId(username) {
-            if (userIdCache[username]) {
-                return userIdCache[username];
-            }
-
-            try {
-                const response = await fetch(`https://users.roproxy.com/v1/usernames/${username}`, {
-
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ usernames: [username], excludeBannedUsers: false })
-                });
-
-                const data = await response.json();
-                
-                if (data.data && data.data.length > 0) {
-                    userIdCache[username] = data.data[0].id;
-                    return data.data[0].id;
-                }
-            } catch (error) {
-                console.error(`Error for ${username}:`, error);
-            }
-            return null;
-        }
-
-        // Check online status for batch of user IDs
-        async function checkBatchOnlineStatus(userIds) {
-            try {
-                const response = await fetch('https://presence.roproxy.com/v1/presence/users', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ userIds: userIds })
-                });
-
-                const data = await response.json();
-                return data.userPresences || [];
-            } catch (error) {
-                console.error('Presence check error:', error);
-                return [];
-            }
-        }
-
-        // Main online checking function
-        async function checkOnlineUsers() {
-            const listDiv = document.getElementById('online-users-list');
-            const countDiv = document.getElementById('online-count');
+        // ========================================
+        // FIREBASE INITIALIZATION
+        // ========================================
+        let database = null;
+        let isFirebaseConnected = false;
+        
+        function updateFirebaseStatus(connected, message) {
+            isFirebaseConnected = connected;
+            const statusDot = document.getElementById('statusDot');
+            const statusText = document.getElementById('statusText');
             
-            listDiv.innerHTML = '<div class="loading">Checking online status...</div>';
-            countDiv.innerHTML = '';
-            
-            let onlineUsers = [];
-            const batchSize = 50;
-            
-            for (let i = 0; i < users.length; i += batchSize) {
-                const batch = users.slice(i, i + batchSize);
-                
-                // Get IDs
-                const ids = await Promise.all(batch.map(u => getUserId(u.username)));
-                const validData = batch.map((user, idx) => ({ user, id: ids[idx] }))
-                                       .filter(d => d.id !== null);
-
-                if (validData.length > 0) {
-                    const presences = await checkBatchOnlineStatus(validData.map(d => d.id));
-                    
-                    presences.forEach(p => {
-                        if (p.userPresenceType === 2) { // In game
-                            const found = validData.find(d => d.id === p.userId);
-                            if (found) onlineUsers.push(found.user);
-                        }
-                    });
-                }
-
-                if (i + batchSize < users.length) {
-                    await new Promise(r => setTimeout(r, 1000));
-                }
-            }
-
-            onlineUsersGlobal = onlineUsers;
-
-            if (onlineUsers.length > 0) {
-                listDiv.innerHTML = '';
-                onlineUsers.forEach(user => {
-                    const card = document.createElement('div');
-                    card.className = 'online-user-card';
-                    card.onclick = () => searchSpecificUser(user.username);
-                    card.innerHTML = `
-                        <div class="online-user-name">🎮 ${user.username}</div>
-                        <div class="online-user-threat ${getThreatClass(user.threat)}">${user.threat} Threat</div>
-                    `;
-                    listDiv.appendChild(card);
-                });
-                countDiv.innerHTML = `<strong>${onlineUsers.length}</strong> suspect(s) currently online`;
+            if (connected) {
+                statusDot.classList.add('connected');
+                statusText.textContent = message || 'Firebase Connected';
+                console.log('✓ Firebase connected successfully');
             } else {
-                listDiv.innerHTML = '<div class="no-online">✅ No suspects currently online</div>';
+                statusDot.classList.remove('connected');
+                statusText.textContent = message || 'Firebase Disconnected';
+                console.error('✗ Firebase not connected');
             }
         }
 
-        function searchSpecificUser(username) {
-            document.getElementById('search-bar').value = username;
-            search();
-            document.getElementById('results').scrollIntoView({ behavior: 'smooth' });
+        // Initialize Firebase
+        try {
+            firebase.initializeApp(firebaseConfig);
+            database = firebase.database();
+            
+            // Test connection
+            const connectedRef = database.ref('.info/connected');
+            connectedRef.on('value', (snap) => {
+                if (snap.val() === true) {
+                    updateFirebaseStatus(true, 'Firebase Connected');
+                } else {
+                    updateFirebaseStatus(false, 'Firebase Disconnected');
+                }
+            });
+        } catch (error) {
+            console.error('Firebase initialization error:', error);
+            updateFirebaseStatus(false, 'Firebase Error');
+            alert('Firebase is not configured correctly. Please check your Firebase settings.');
         }
 
-        function search() {
-            const query = document.getElementById("search-bar").value.toLowerCase();
-            const resultsDiv = document.getElementById("results");
+        // ========================================
+        // DATA MANAGEMENT - FIREBASE ONLY
+        // ========================================
+        let isAdmin = false;
+        let divisionsCache = [];
+        let playersCache = [];
+        let wantedCache = [];
 
-            resultsDiv.innerHTML = "";
+        // Helper: Save data to Firebase ONLY
+        function saveData(path, data) {
+            if (!database || !isFirebaseConnected) {
+                console.error('Cannot save: Firebase not connected');
+                alert('Error: Firebase is not connected. Changes cannot be saved.');
+                return Promise.reject(new Error('Firebase not connected'));
+            }
             
-            if (!query.trim()) return;
-            
-            const matches = users.filter(u => u.username.toLowerCase().includes(query));
-
-            if (matches.length > 0) {
-                matches.forEach(user => {
-                    const isOnline = onlineUsersGlobal.some(o => 
-                        o.username.toLowerCase() === user.username.toLowerCase()
-                    );
-                    const badge = isOnline ? '<span class="online-badge">🟢 ONLINE NOW</span>' : '';
-                    
-                    resultsDiv.innerHTML += `
-                        <div class="embed-box">
-                            <div class="embed-title">🔍 ${user.username}${badge}</div>
-                            <div class="embed-description">
-                                <span class="highlight">Username:</span> ${user.username}<br>
-                                <span class="highlight">Reason:</span> ${user.reason}<br>
-                                <span class="highlight">Details:</span> ${user.details}<br>
-                                <span class="highlight">Threat:</span> <span class="threat-level ${getThreatClass(user.threat)}">${user.threat}</span>
-                            </div>
-                        </div>
-                    `;
+            return database.ref(path).set(data)
+                .then(() => {
+                    console.log(`✓ Saved to Firebase: ${path}`);
+                })
+                .catch((error) => {
+                    console.error(`✗ Firebase save error for ${path}:`, error);
+                    alert('Error saving to Firebase: ' + error.message);
+                    throw error;
                 });
-            } else {
-                resultsDiv.innerHTML = `
-                    <div class="embed-box">
-                        <div class="embed-title">❌ No Results</div>
-                        <div class="embed-description">No results for "<b>${query}</b>"</div>
-                    </div>
-                `;
+        }
+
+        // Helper: Get data from Firebase ONLY
+        function getData(path) {
+            if (!database || !isFirebaseConnected) {
+                console.error('Cannot load: Firebase not connected');
+                return Promise.reject(new Error('Firebase not connected'));
             }
+            
+            return database.ref(path).once('value')
+                .then(snapshot => {
+                    const data = snapshot.val();
+                    console.log(`✓ Loaded from Firebase: ${path}`, data ? 'Found' : 'Empty');
+                    return data;
+                })
+                .catch(error => {
+                    console.error(`✗ Firebase get error for ${path}:`, error);
+                    throw error;
+                });
         }
 
-        function getThreatClass(level) {
-            const map = { "Low": "low", "Medium": "medium", "High": "high", "Critical": "critical" };
-            return map[level] || "";
+        // Helper: Delete data from Firebase ONLY
+        function deleteData(path) {
+            if (!database || !isFirebaseConnected) {
+                console.error('Cannot delete: Firebase not connected');
+                return Promise.reject(new Error('Firebase not connected'));
+            }
+            
+            return database.ref(path).remove()
+                .then(() => {
+                    console.log(`✓ Deleted from Firebase: ${path}`);
+                })
+                .catch(error => {
+                    console.error(`✗ Firebase delete error for ${path}:`, error);
+                    throw error;
+                });
         }
 
-        // Initialize
-        window.addEventListener('load', () => {
-            checkOnlineUsers();
-            setInterval(checkOnlineUsers, 180000); // Every 3 minutes
+        // ========================================
+        // UI FUNCTIONS
+        // ========================================
+        
+        // Scroll behavior
+        window.addEventListener('scroll', () => {
+            const tabsContainer = document.getElementById('tabsContainer');
+            const heroHeight = document.querySelector('.hero-section').offsetHeight;
+            
+            if (window.scrollY >= heroHeight - 100) {
+                tabsContainer.classList.add('sticky');
+            } else {
+                tabsContainer.classList.remove('sticky');
+            }
         });
 
-        document.getElementById('search-bar').addEventListener('keypress', e => {
-            if (e.key === 'Enter') search();
+        function scrollToContent() {
+            document.getElementById('contentArea').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Tab switching
+        function switchTab(tabName) {
+            const tabs = document.querySelectorAll('.tab');
+            const contents = document.querySelectorAll('.tab-content');
+            
+            tabs.forEach(tab => tab.classList.remove('active'));
+            contents.forEach(content => content.classList.remove('active'));
+            
+            event.target.classList.add('active');
+            document.getElementById(tabName).classList.add('active');
+        }
+
+        // Modal functions
+        function showAdminLogin() {
+            if (isAdmin) {
+                // Logout
+                isAdmin = false;
+                document.querySelectorAll('.admin-only').forEach(el => el.style.display = 'none');
+                document.getElementById('adminBtn').textContent = 'Admin Login';
+                document.getElementById('adminBtn').classList.remove('logged-in');
+            } else {
+                document.getElementById('adminLoginModal').classList.add('active');
+            }
+        }
+
+        function showAddDivision() {
+            document.getElementById('addDivisionModal').classList.add('active');
+        }
+
+        function showAddPlayer() {
+            document.getElementById('addPlayerModal').classList.add('active');
+        }
+
+        function showAddWanted() {
+            document.getElementById('addWantedModal').classList.add('active');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        // Admin login
+        function adminLogin() {
+            const password = document.getElementById('adminPassword').value;
+            if (password === ADMIN_PASSWORD) {
+                isAdmin = true;
+                document.querySelectorAll('.admin-only').forEach(el => el.style.display = 'block');
+                closeModal('adminLoginModal');
+                document.getElementById('adminBtn').textContent = 'Logout';
+                document.getElementById('adminBtn').classList.add('logged-in');
+                document.getElementById('adminPassword').value = '';
+                alert('Access granted!');
+            } else {
+                alert('Invalid access code!');
+                document.getElementById('adminPassword').value = '';
+            }
+        }
+
+        // ========================================
+        // DIVISIONS MANAGEMENT
+        // ========================================
+        
+        async function loadDivisions() {
+            try {
+                const data = await getData('divisions');
+                
+                if (data) {
+                    divisionsCache = Object.values(data);
+                } else {
+                    // Initialize with default divisions
+                    divisionsCache = [
+                        {
+                            id: Date.now(),
+                            name: 'Special Operations',
+                            description: 'Elite combat unit specializing in high-risk covert operations and tactical interventions.',
+                            image: 'https://images.unsplash.com/photo-1627662055757-4c48a5c65e2a?w=800'
+                        },
+                        {
+                            id: Date.now() + 1,
+                            name: 'Intelligence Corps',
+                            description: 'Strategic intelligence gathering, analysis, and counter-intelligence operations.',
+                            image: 'https://images.unsplash.com/photo-1614935151651-0bea6508db6b?w=800'
+                        },
+                        {
+                            id: Date.now() + 2,
+                            name: 'Tactical Aviation',
+                            description: 'Air superiority operations providing reconnaissance and aerial support.',
+                            image: 'https://images.unsplash.com/photo-1583792433270-f3a96ff2a2f7?w=800'
+                        }
+                    ];
+                    await saveDivisions();
+                }
+                
+                renderDivisions();
+            } catch (error) {
+                console.error('Error loading divisions:', error);
+                document.getElementById('divisionsLoading').textContent = 'Error: Firebase not connected';
+            }
+        }
+
+        async function saveDivisions() {
+            const divisionsObj = {};
+            divisionsCache.forEach(div => {
+                divisionsObj[div.id] = div;
+            });
+            await saveData('divisions', divisionsObj);
+        }
+
+        async function addDivision() {
+            if (!isAdmin) {
+                alert('Admin access required!');
+                return;
+            }
+
+            const name = document.getElementById('divisionName').value.trim();
+            const description = document.getElementById('divisionDesc').value.trim();
+            const image = document.getElementById('divisionImage').value.trim();
+
+            if (!name || !description) {
+                alert('Please fill all required fields!');
+                return;
+            }
+
+            const newDivision = {
+                id: Date.now(),
+                name,
+                description,
+                image: image || 'https://images.unsplash.com/photo-1614935151651-0bea6508db6b?w=800'
+            };
+
+            divisionsCache.push(newDivision);
+            await saveDivisions();
+            renderDivisions();
+            closeModal('addDivisionModal');
+            
+            // Clear form
+            document.getElementById('divisionName').value = '';
+            document.getElementById('divisionDesc').value = '';
+            document.getElementById('divisionImage').value = '';
+        }
+
+        async function deleteDivision(id) {
+            if (!isAdmin) return;
+            if (confirm('Delete this division?')) {
+                divisionsCache = divisionsCache.filter(d => d.id !== id);
+                await saveDivisions();
+                renderDivisions();
+            }
+        }
+
+        function renderDivisions() {
+            const grid = document.getElementById('divisionsGrid');
+            const loading = document.getElementById('divisionsLoading');
+            
+            loading.style.display = 'none';
+            grid.style.display = 'grid';
+            
+            grid.innerHTML = divisionsCache.map(div => `
+                <div class="division-card" style="background-image: url('${div.image}');">
+                    <div class="division-overlay">
+                        <h3>${div.name}</h3>
+                        <p>${div.description}</p>
+                        ${isAdmin ? `<button class="btn btn-danger" onclick="deleteDivision(${div.id})">Delete</button>` : ''}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // ========================================
+        // PLAYERS MANAGEMENT
+        // ========================================
+        
+        async function loadPlayers() {
+            try {
+                const data = await getData('players');
+                
+                if (data) {
+                    playersCache = Object.values(data);
+                } else {
+                    // Initialize with default players
+                    playersCache = [
+                        { id: Date.now(), callsign: 'ALPHA-1', username: 'CommanderX', rank: 'Commander', division: 'Special Operations' },
+                        { id: Date.now() + 1, callsign: 'BRAVO-2', username: 'TacticalLead', rank: 'Captain', division: 'Intelligence Corps' },
+                        { id: Date.now() + 2, callsign: 'DELTA-3', username: 'SkyWatcher', rank: 'Lieutenant', division: 'Tactical Aviation' }
+                    ];
+                    await savePlayers();
+                }
+                
+                renderPlayers();
+            } catch (error) {
+                console.error('Error loading players:', error);
+                document.getElementById('playersLoading').textContent = 'Error: Firebase not connected';
+            }
+        }
+
+        async function savePlayers() {
+            const playersObj = {};
+            playersCache.forEach(player => {
+                playersObj[player.id] = player;
+            });
+            await saveData('players', playersObj);
+        }
+
+        async function addPlayer() {
+            if (!isAdmin) {
+                alert('Admin access required!');
+                return;
+            }
+
+            const callsign = document.getElementById('playerCallsign').value.trim();
+            const username = document.getElementById('playerUsername').value.trim();
+            const rank = document.getElementById('playerRank').value;
+            const division = document.getElementById('playerDivision').value.trim();
+
+            if (!callsign || !username || !division) {
+                alert('Please fill all required fields!');
+                return;
+            }
+
+            const newPlayer = {
+                id: Date.now(),
+                callsign,
+                username,
+                rank,
+                division
+            };
+
+            playersCache.push(newPlayer);
+            await savePlayers();
+            renderPlayers();
+            closeModal('addPlayerModal');
+            
+            // Clear form
+            document.getElementById('playerCallsign').value = '';
+            document.getElementById('playerUsername').value = '';
+            document.getElementById('playerDivision').value = '';
+        }
+
+        async function deletePlayer(id) {
+            if (!isAdmin) return;
+            if (confirm('Remove this operative?')) {
+                playersCache = playersCache.filter(p => p.id !== id);
+                await savePlayers();
+                renderPlayers();
+            }
+        }
+
+        function getFilteredPlayers() {
+            const search = document.getElementById('playerSearch').value.toLowerCase();
+            const rankFilter = document.getElementById('rankFilter').value;
+            
+            return playersCache.filter(player => {
+                const matchesSearch = player.callsign.toLowerCase().includes(search) || 
+                                    player.username.toLowerCase().includes(search);
+                const matchesRank = !rankFilter || player.rank === rankFilter;
+                return matchesSearch && matchesRank;
+            });
+        }
+
+        function filterPlayers() {
+            renderPlayers();
+        }
+
+        function renderPlayers() {
+            const tbody = document.getElementById('playersTableBody');
+            const loading = document.getElementById('playersLoading');
+            const table = document.getElementById('playersTable');
+            const filteredPlayers = getFilteredPlayers();
+            
+            loading.style.display = 'none';
+            table.style.display = 'table';
+            
+            tbody.innerHTML = filteredPlayers.map(player => `
+                <tr>
+                    <td style="color: var(--gold-primary); font-weight: 600;">${player.callsign}</td>
+                    <td>${player.username}</td>
+                    <td><span class="rank-badge">${player.rank}</span></td>
+                    <td>${player.division}</td>
+                    ${isAdmin ? `<td><button class="btn btn-danger" style="padding: 0.6rem 1.25rem; font-size: 0.8rem;" onclick="deletePlayer(${player.id})">Remove</button></td>` : ''}
+                </tr>
+            `).join('');
+            
+            // Update member count
+            document.getElementById('memberCount').textContent = playersCache.length;
+        }
+
+        // ========================================
+        // WANTED MANAGEMENT
+        // ========================================
+        
+        async function loadWanted() {
+            try {
+                const data = await getData('wanted');
+                
+                if (data) {
+                    wantedCache = Object.values(data);
+                } else {
+                    // Initialize with default wanted
+                    wantedCache = [
+                        {
+                            id: Date.now(),
+                            username: 'ShadowOps',
+                            alias: 'Ghost',
+                            reason: 'Unauthorized access to classified systems and theft of sensitive intelligence data.',
+                            threat: 'high',
+                            location: 'Unknown - Last detected in Eastern Sector'
+                        },
+                        {
+                            id: Date.now() + 1,
+                            username: 'RogueAgent',
+                            alias: 'Viper',
+                            reason: 'Desertion during active operation and collaboration with hostile forces.',
+                            threat: 'medium',
+                            location: 'Sector 7 - Metropolitan Area'
+                        }
+                    ];
+                    await saveWanted();
+                }
+                
+                renderWanted();
+            } catch (error) {
+                console.error('Error loading wanted:', error);
+                document.getElementById('wantedLoading').textContent = 'Error: Firebase not connected';
+            }
+        }
+
+        async function saveWanted() {
+            const wantedObj = {};
+            wantedCache.forEach(w => {
+                wantedObj[w.id] = w;
+            });
+            await saveData('wanted', wantedObj);
+        }
+
+        async function addWanted() {
+            if (!isAdmin) {
+                alert('Admin access required!');
+                return;
+            }
+
+            const username = document.getElementById('wantedUsername').value.trim();
+            const alias = document.getElementById('wantedAlias').value.trim();
+            const reason = document.getElementById('wantedReason').value.trim();
+            const threat = document.getElementById('wantedThreat').value;
+            const location = document.getElementById('wantedLocation').value.trim();
+
+            if (!username || !reason) {
+                alert('Please fill all required fields!');
+                return;
+            }
+
+            const newWanted = {
+                id: Date.now(),
+                username,
+                alias,
+                reason,
+                threat,
+                location
+            };
+
+            wantedCache.push(newWanted);
+            await saveWanted();
+            renderWanted();
+            closeModal('addWantedModal');
+            
+            // Clear form
+            document.getElementById('wantedUsername').value = '';
+            document.getElementById('wantedAlias').value = '';
+            document.getElementById('wantedReason').value = '';
+            document.getElementById('wantedLocation').value = '';
+        }
+
+        async function deleteWanted(id) {
+            if (!isAdmin) return;
+            if (confirm('Remove this target?')) {
+                wantedCache = wantedCache.filter(w => w.id !== id);
+                await saveWanted();
+                renderWanted();
+            }
+        }
+
+        function showWantedDetails(id) {
+            const wantedPerson = wantedCache.find(w => w.id === id);
+            if (!wantedPerson) return;
+
+            const threatClass = `threat-${wantedPerson.threat}`;
+            const detailsHTML = `
+                <div class="card-content">
+                    <p><strong>Target ID:</strong> ${wantedPerson.username}</p>
+                    <p><strong>Known Alias:</strong> ${wantedPerson.alias}</p>
+                    <p><strong>Offense Details:</strong> ${wantedPerson.reason}</p>
+                    <p><strong>Last Known Position:</strong> ${wantedPerson.location}</p>
+                    <div class="threat-level ${threatClass}">
+                        Threat: ${wantedPerson.threat.toUpperCase()}
+                    </div>
+                    ${isAdmin ? `<button class="btn btn-danger" style="margin-top: 1.5rem;" onclick="deleteWanted(${wantedPerson.id}); closeModal('wantedDetailsModal');">Remove Target</button>` : ''}
+                </div>
+            `;
+
+            document.getElementById('wantedDetailsContent').innerHTML = detailsHTML;
+            document.getElementById('wantedDetailsModal').classList.add('active');
+        }
+
+        function getFilteredWanted() {
+            const search = document.getElementById('wantedSearch').value.toLowerCase();
+            
+            return wantedCache.filter(w => 
+                w.username.toLowerCase().includes(search) || 
+                w.alias.toLowerCase().includes(search)
+            );
+        }
+
+        function filterWanted() {
+            renderWanted();
+        }
+
+        function renderWanted() {
+            const grid = document.getElementById('wantedGrid');
+            const loading = document.getElementById('wantedLoading');
+            const filteredWanted = getFilteredWanted();
+            
+            loading.style.display = 'none';
+            grid.style.display = 'grid';
+            
+            grid.innerHTML = filteredWanted.map(w => `
+                <div class="wanted-card" onclick="showWantedDetails(${w.id})">
+                    <div class="card-header">
+                        <h3 class="card-title">${w.username}</h3>
+                        <span class="card-badge">${w.alias}</span>
+                    </div>
+                    <div class="card-content">
+                        <p><strong>Charges:</strong> ${w.reason.substring(0, 120)}${w.reason.length > 120 ? '...' : ''}</p>
+                        <div class="threat-level threat-${w.threat}">
+                            ${w.threat.toUpperCase()}
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // ========================================
+        // INITIALIZATION
+        // ========================================
+        
+        window.addEventListener('load', async () => {
+            console.log('=== Initializing FBI TEAM ROBLOX ===');
+            
+            // Wait for Firebase connection
+            if (!isFirebaseConnected) {
+                console.log('Waiting for Firebase connection...');
+                // Give it a moment to connect
+                await new Promise(resolve => setTimeout(resolve, 2000));
+            }
+            
+            if (isFirebaseConnected) {
+                await loadDivisions();
+                await loadPlayers();
+                await loadWanted();
+                console.log('=== Initialization Complete ===');
+            } else {
+                console.error('=== Firebase Not Connected ===');
+                alert('Warning: Firebase is not connected. The website cannot load or save data. Please check your Firebase configuration.');
+            }
+        });
+
+        // Close modals when clicking outside
+        document.querySelectorAll('.modal').forEach(modal => {
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.classList.remove('active');
+                }
+            });
+        });
+
+        // Enter key support for login
+        document.getElementById('adminPassword').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') adminLogin();
         });
     </script>
-
 </body>
 </html>
