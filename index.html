@@ -1074,13 +1074,13 @@
         <!-- Wanted Reports Tab -->
         <div id="wanted" class="tab-content">
             <div class="section-header">
-                <h2>High-Value Targets</h2>
+                <h2>Wanted by FBI</h2>
                 <button class="btn admin-only" style="display: none;" onclick="showAddWanted()">+ New Target</button>
             </div>
             <div class="controls">
                 <input type="text" class="search-box" id="wantedSearch" placeholder="Search targets..." oninput="filterWanted()">
             </div>
-            <div id="wantedLoading" class="loading">Loading targets</div>
+            <div id="wantedLoading" class="loading">Loading suspects</div>
             <div class="cards-grid" id="wantedGrid" style="display: none;">
                 <!-- Wanted reports will be populated here -->
             </div>
@@ -1138,7 +1138,7 @@
     <div id="addPlayerModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
-                <h3>New Operative</h3>
+                <h3>New Agent</h3>
                 <button class="close-btn" onclick="closeModal('addPlayerModal')">&times;</button>
             </div>
             <div class="form-group">
@@ -1156,15 +1156,15 @@
                     <option value="Corporal">Corporal</option>
                     <option value="Sergeant">Sergeant</option>
                     <option value="Lieutenant">Lieutenant</option>
-                    <option value="Captain">Captain</option>
-                    <option value="Commander">Commander</option>
+                    <option value="Deputy Director">Deputy Director</option>
+                    <option value="Director">Director</option>
                 </select>
             </div>
             <div class="form-group">
                 <label>Division</label>
                 <input type="text" id="playerDivision" placeholder="e.g., Special Operations">
             </div>
-            <button class="btn" onclick="addPlayer()">Add Operative</button>
+            <button class="btn" onclick="addPlayer()">Add Agent</button>
         </div>
     </div>
 
@@ -1172,11 +1172,11 @@
     <div id="addWantedModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
-                <h3>New Target</h3>
+                <h3>New Suspect</h3>
                 <button class="close-btn" onclick="closeModal('addWantedModal')">&times;</button>
             </div>
             <div class="form-group">
-                <label>Target Username</label>
+                <label>Suspect Username</label>
                 <input type="text" id="wantedUsername" placeholder="Primary identifier...">
             </div>
             <div class="form-group">
