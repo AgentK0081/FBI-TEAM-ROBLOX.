@@ -1435,15 +1435,38 @@
 // FIREBASE AUTHENTICATION
 // ========================================
 
+// ========================================
+// FIREBASE AUTHENTICATION - SECURE
+// ========================================
+
 let currentUser = null;
+
+// List of authorized admin emails
+const ADMIN_EMAILS = [
+    'director@ftr.com',
+    'deputydirector@ftr.com'
+    // Add more as needed
+];
 
 // Check authentication state on load
 firebase.auth().onAuthStateChanged((user) => {
     if (user) {
-        currentUser = user;
-        isAdmin = true;
-        updateAdminUI(true);
-        console.log('✓ User authenticated:', user.email);
+        // ✅ Check if user email is in admin list
+        if (ADMIN_EMAILS.includes(user.email)) {
+            currentUser = user;
+            isAdmin = true;
+            updateAdminUI(true);
+            updateFirebaseStatus(true, 'Admin: ' + user.email.split('@')[0]);
+            console.log('✓ Admin authenticated:', user.email);
+        } else {
+            // ❌ User is logged in but NOT an admin
+            currentUser = user;
+            isAdmin = false;
+            updateAdminUI(false);
+            console.warn('⚠ User logged in but not authorized as admin:', user.email);
+            alert('You are not authorized as an administrator.');
+            firebase.auth().signOut(); // Log them out immediately
+        }
     } else {
         currentUser = null;
         isAdmin = false;
@@ -1451,7 +1474,6 @@ firebase.auth().onAuthStateChanged((user) => {
         console.log('✗ No user authenticated');
     }
 });
-
 // Update UI based on admin status
 function updateAdminUI(loggedIn) {
     const adminElements = document.querySelectorAll('.admin-only');
