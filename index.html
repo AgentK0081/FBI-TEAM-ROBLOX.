@@ -1790,26 +1790,50 @@ async function adminLogout() {
         }
 
         function renderPlayers() {
-            const tbody = document.getElementById('playersTableBody');
-            const loading = document.getElementById('playersLoading');
-            const table = document.getElementById('playersTable');
-            const filteredPlayers = getFilteredPlayers();
-            
-            loading.style.display = 'none';
-            table.style.display = 'table';
-            
-            tbody.innerHTML = filteredPlayers.map(player => `
-                <tr>
-                    <td style="color: var(--gold-primary); font-weight: 600;">${player.callsign}</td>
-                    <td>${player.username}</td>
-                    <td><span class="rank-badge">${player.rank}</span></td>
-                    <td>${player.division}</td>
-                    ${isAdmin ? `<td><button class="btn btn-danger" style="padding: 0.6rem 1.25rem; font-size: 0.8rem;" onclick="deletePlayer(${player.id})">Remove</button></td>` : ''}
-                </tr>
-            `).join('');
-            
-            // Update member count
-            document.getElementById('memberCount').textContent = playersCache.length;
+    const tbody = document.getElementById('playersTableBody');
+    const loading = document.getElementById('playersLoading');
+    const table = document.getElementById('playersTable');
+    const filteredPlayers = getFilteredPlayers();
+    
+    loading.style.display = 'none';
+    table.style.display = 'table';
+    
+    // ✅ RANK HIERARCHY - Highest to Lowest
+    const rankOrder = {
+        'Director': 1,
+        'Deputy Director': 2,
+        'Assistant Director': 3,
+        'Assistant Director In-charge': 4,
+        'Directors [Division]': 5,
+        'Special Agent in Charge': 6,
+        'Assistant Special Agent in Charge': 7,
+        'Experienced Supervisory Special Agent': 8,
+        'Supervisory Special Agent': 9,
+        'Senior Special Agent': 10,
+        'Experienced Special Agent': 11,
+        'Special Agent': 12,
+        'Probationary Special Agent': 13
+    };
+    
+    // ✅ Sort players by rank (highest rank first)
+    const sortedPlayers = filteredPlayers.sort((a, b) => {
+        const rankA = rankOrder[a.rank] || 999;
+        const rankB = rankOrder[b.rank] || 999;
+        return rankA - rankB; // Lower number = higher rank
+    });
+    
+    tbody.innerHTML = sortedPlayers.map(player => `
+        <tr>
+            <td style="color: var(--gold-primary); font-weight: 600;">${player.callsign}</td>
+            <td>${player.username}</td>
+            <td><span class="rank-badge">${player.rank}</span></td>
+            <td>${player.division}</td>
+            ${isAdmin ? `<td><button class="btn btn-danger" style="padding: 0.6rem 1.25rem; font-size: 0.8rem;" onclick="deletePlayer(${player.id})">Remove</button></td>` : ''}
+        </tr>
+    `).join('');
+    
+    // Update member count
+    document.getElementById('memberCount').textContent = playersCache.length;
         }
 
         // ========================================
