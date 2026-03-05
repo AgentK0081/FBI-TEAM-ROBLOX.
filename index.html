@@ -1346,7 +1346,7 @@
 
     <script>
         // ========================================
-        // FIREBASE CONFIGURATION
+        // FIREBASsE CONFIGURATION
         // ========================================
         // REPLACE WITH YOUR FIREBASE CONFIG
         const firebaseConfig = {
@@ -1572,7 +1572,7 @@ firebase.auth().onAuthStateChanged((user) => {
             updateAdminUI(false);
             console.warn('⚠ User not authorized:', user.email);
             alert('You are not authorized.');
-            firebase.auth().signOut(); // Log them out immediately
+            firebase.auth().signOut(); // Log them out immediatel
         }
     } else {
         currentUser = null;
