@@ -683,7 +683,14 @@
     }
 }
 
-        
+        .arrest-card {
+    border-left: 3px solid var(--gold-primary);
+}
+
+.arrest-card .card-title {
+    letter-spacing: 0.2em;
+    font-size: 1.3rem;
+}
 
         /* Buttons */
         .btn {
@@ -973,6 +980,10 @@
     <!-- Admin Login Button -->
     <button class="admin-btn" id="adminBtn" onclick="showAdminLogin()">Admin Login</button>
 
+    <!-- Agent Login Button -->
+<button class="admin-btn" id="agentBtn" onclick="showAgentLogin()" 
+        style="top: 5rem;">Agent Login</button>
+
     <!-- Hero Section -->
     <div class="hero-section">
         <div class="hero-bg"></div>
@@ -993,6 +1004,7 @@
             <button class="tab" onclick="switchTab('divisions')">Divisions</button>
             <button class="tab" onclick="switchTab('players')">Players</button>
             <button class="tab" onclick="switchTab('wanted')">Wanted Reports</button>
+            <button class="tab" id="arrestsTab" onclick="switchTab('arrests')" style="display: none;">Arrest Logs</button>
         </div>
     </div>
 
@@ -1111,6 +1123,23 @@
         </div>
     </div>
 
+    <!-- Arrest Logs Tab -->
+<div id="arrests" class="tab-content">
+    <div class="section-header">
+        <h2>Arrest Logs</h2>
+        <button class="btn agent-only" style="display: none;" onclick="showAddArrest()">+ New Arrest Log</button>
+    </div>
+    <div class="controls">
+        <input type="text" class="search-box" id="arrestSearch" 
+               placeholder="Search arrests by suspect, agent, or crime..." 
+               oninput="filterArrests()">
+    </div>
+    <div id="arrestsLoading" class="loading">Loading arrest logs</div>
+    <div class="cards-grid" id="arrestsGrid" style="display: none;">
+        <!-- Arrests will be populated here -->
+    </div>
+</div>
+    
     <!-- Admin Login Modal -->
 <div id="adminLoginModal" class="modal">
     <div class="modal-content">
@@ -1134,7 +1163,27 @@
         <button class="btn" onclick="adminLogin()" id="loginBtn">Sign In</button>
     </div>
 </div>
-
+    
+<!-- Agent Login Modal -->
+<div id="agentLoginModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>Agent Access</h3>
+            <button class="close-btn" onclick="closeModal('agentLoginModal')">&times;</button>
+        </div>
+        <div id="agentLoginMessage" style="padding: 1rem; margin-bottom: 1rem; border-radius: 8px; display: none;"></div>
+        <div class="form-group">
+            <label>Email</label>
+            <input type="email" id="agentEmail" placeholder="agent@ftr.com" autocomplete="email">
+        </div>
+        <div class="form-group">
+            <label>Password</label>
+            <input type="password" id="agentPassword" placeholder="Enter password..." autocomplete="current-password">
+        </div>
+        <button class="btn" onclick="agentLogin()" id="agentLoginBtn">Sign In</button>
+    </div>
+</div>
+    
     <!-- Add Division Modal -->
     <div id="addDivisionModal" class="modal">
         <div class="modal-content">
@@ -1247,6 +1296,51 @@
             </div>
         </div>
     </div>
+
+    <!-- Add Arrest Modal -->
+<div id="addArrestModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>New Arrest Log</h3>
+            <button class="close-btn" onclick="closeModal('addArrestModal')">&times;</button>
+        </div>
+        <div class="form-group">
+            <label>Suspect/Suspects <span style="color: #ef4444;">*</span></label>
+            <input type="text" id="arrestSuspects" 
+                   placeholder="e.g., Player1, Player2, Player3">
+            <small style="color: var(--text-tertiary); font-size: 0.85rem;">
+                Enter Roblox usernames separated by commas
+            </small>
+        </div>
+        <div class="form-group">
+            <label>Primary Agent <span style="color: #ef4444;">*</span></label>
+            <input type="text" id="arrestPrimaryAgent" 
+                   placeholder="e.g., Agent Smith">
+        </div>
+        <div class="form-group">
+            <label>Secondary Agent(s)</label>
+            <input type="text" id="arrestSecondaryAgents" 
+                   placeholder="e.g., Agent Jones, Agent Brown">
+            <small style="color: var(--text-tertiary); font-size: 0.85rem;">
+                Optional - Leave blank if none
+            </small>
+        </div>
+        <div class="form-group">
+            <label>Crime <span style="color: #ef4444;">*</span></label>
+            <textarea id="arrestCrime" 
+                      placeholder="e.g., Armed Robbery, Evading Police, Assault"></textarea>
+        </div>
+        <div class="form-group">
+            <label>Arrest Photo (Optional)</label>
+            <input type="text" id="arrestImage" 
+                   placeholder="https://imgur.com/your-image.png">
+            <small style="color: var(--text-tertiary); font-size: 0.85rem;">
+                Paste image URL (e.g., from Imgur, Discord, etc.)
+            </small>
+        </div>
+        <button class="btn" onclick="addArrest()">Submit Arrest Log</button>
+    </div>
+</div>
 
     <script>
         // ========================================
@@ -2005,10 +2099,11 @@ async function adminLogout() {
             }
             
             if (isFirebaseConnected) {
-                await loadDivisions();
-                await loadPlayers();
-                await loadWanted();
-                console.log('=== Initialization Complete ===');
+    await loadDivisions();
+    await loadPlayers();
+    await loadWanted();
+    await initializeArrests(); // ← ADD THIS LINE
+    console.log('=== Initialization Complete ===');
             } else {
                 console.error('=== Firebase Not Connected ===');
                 alert('Warning: Firebase is not connected. The website cannot load or save data. Please check your Firebase configuration.');
@@ -2029,5 +2124,9 @@ async function adminLogout() {
             if (e.key === 'Enter') adminLogin();
         });
     </script>
+
+    <!-- Arrest Logs System -->
+<script src="arrest-logs.js"></script>
+    
 </body>
 </html>
