@@ -1548,20 +1548,30 @@ const ADMIN_EMAILS = [
 // Check authentication state on load
 firebase.auth().onAuthStateChanged((user) => {
     if (user) {
-        // ✅ Check if user email is in admin list
+        // ✅ Check if ADMIN
         if (ADMIN_EMAILS.includes(user.email)) {
             currentUser = user;
             isAdmin = true;
             updateAdminUI(true);
             updateFirebaseStatus(true, 'Admin: ' + user.email.split('@')[0]);
             console.log('✓ Admin authenticated:', user.email);
-        } else {
-            // ❌ User is logged in but NOT an admin
+        }
+        // ✅ Check if AGENT
+        else if (user.email === 'agent@ftr.com') {
+            currentUser = user;
+            isAdmin = false; // Agents are NOT admins
+            updateAdminUI(false);
+            updateFirebaseStatus(true, 'Agent: ' + user.email.split('@')[0]);
+            console.log('✓ Agent authenticated:', user.email);
+            // The arrest-logs.js will handle agent-specific UI
+        }
+        // ❌ Not authorized
+        else {
             currentUser = user;
             isAdmin = false;
             updateAdminUI(false);
-            console.warn('⚠ User logged in but not authorized as admin:', user.email);
-            alert('You are not authorized as an administrator.');
+            console.warn('⚠ User not authorized:', user.email);
+            alert('You are not authorized.');
             firebase.auth().signOut(); // Log them out immediately
         }
     } else {
